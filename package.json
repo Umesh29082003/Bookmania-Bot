@@ -1,0 +1,19 @@
+{
+  "name": "book_dictionary-main",
+  "version": "1.0.0",
+  "description": "Hey!",
+  "main": "bot.js",
+  "scripts": {
+    "start": "nodemon bot.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/dialogflow": "^6.4.0",
+    "dialogflow": "^1.2.0",
+    "express": "^4.19.1",
+    "mysql": "^2.18.1",
+    "puppeteer": "^22.6.3"
+  }
+}
