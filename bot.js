@@ -49,12 +49,13 @@ async function sendMessageToDialogflow(message) {
         console.log(Intent)
         if (Intent == 'BooksbyGenre') {
             const givenGenre=parameters.fields.GenreName.stringValue
-            const result = await searchBooksByGenre(givenGenre);
-            if (result.found) {
-                return responses[0].queryResult.fulfillmentText + "<br> &nbsp &nbsp" + result.books;
+            const bookjson = await searchBooksByGenre(givenGenre);
+            console.log(bookjson)
+            if (bookjson.found) {
+                return responses[0].queryResult.fulfillmentText + "<br> &nbsp &nbsp" + bookjson.books;
             }
             else {
-                return result.regret.replace('<GenreName>',givenGenre);
+                return bookjson.regret.replace('<GenreName>',givenGenre);
             }
         }
 
@@ -63,7 +64,7 @@ async function sendMessageToDialogflow(message) {
             const result = await searchBooksByAuthor(givenAuthor);
             if (result.found) {
                 const dailogflowResponse = responses[0].queryResult.fulfillmentText
-                const modifiedResopnse = dailogflowResponse.replace(parameters.fields.person.stringValue, result.authorname);
+                const modifiedResopnse = dailogflowResponse.replace(givenAuthor, result.authorname);
                 return modifiedResopnse+"<br> &nbsp &nbsp"+result.books;
             }
             else {

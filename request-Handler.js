@@ -55,9 +55,11 @@ const searchBooksByGenre = async function (genre) {
     try {
         const category = genreMap[genre];
         const books = data.filter(book => book.category.toString() === category);
-        if (books) {
+        console.log(books)
+        if (books && books.length>0) {
+            const bookArray= books.map(book => book.book_name).slice(0,10).join('<br> &nbsp &nbsp')
             return {
-                books: books.map(book => book.book_name).slice(10).join('<br> &nbsp &nbsp'),
+                books:bookArray,
                 found:true
             }
         }
@@ -77,10 +79,11 @@ const searchBooksByGenre = async function (genre) {
 const searchBooksByAuthor =  async function (author) {
     try {   
         const booksByAuthor = data.filter(book => book.author.toLowerCase().includes(author.toLowerCase()));
-        if (booksByAuthor) {
+        if (booksByAuthor && booksByAuthor.length > 0) {
             const authorname = booksByAuthor[0].author;
+            const bookArray= booksByAuthor.map(book => book.book_name).slice(0, 10).join('<br> &nbsp &nbsp')
             return {
-                books: booksByAuthor.map(book => book.book_name).slice(0, 10).join('<br> &nbsp &nbsp'),
+                books: bookArray,
                 authorname: authorname,
                 found: true
             }
